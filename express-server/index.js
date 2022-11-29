@@ -1,33 +1,28 @@
-const express = require('express');
+const express = require("express");
+const { default: mongoose } = require("mongoose");
 const app = express();
-const path = require('path');
 
-const birds = require('./modules/example')
+const todosModule = require("./components/todos/todos.controller");
 
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
-app.use('/', birds)
+const uri = 'mongodb://localhost:27017';
 
-// app.use('/static', express.static(path.join(__dirname, 'public')))
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected MongoDB");
+  });
 
-// app.get('/', (req, res) => {
-//   res.send('hello')
-// })
+app.use("/todos", todosModule);
 
-app.post('/', (req, res) => {
-  res.send('Got a POST request')
-})
-
-app.put('/user', (req, res) => {
-  res.send('Got a PUT request at /user')
-})
-
-app.delete('/user', (req, res) => {
-  res.send('Got a DELETE request at /user')
-})
-
-
-app.listen(3333, () => {
-  console.log('Application listening on port 3333!');
+app.get('*', function(req, res){
+  res.sendStatus(404)
 });
 
+app.listen(3333, () => {
+  console.log("Application listening on port 3333!");
+});
