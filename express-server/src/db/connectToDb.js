@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const connectDB = async function () {
   const url = "mongodb://localhost:27017";
