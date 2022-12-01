@@ -5,9 +5,11 @@ const routes = require("./controllers/router");
 const cors = require("cors");
 const connectDB = require("./db/connectToDb");
 
+const config = require('./config');
+
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:3000"],
+    origin: '*',
     credentials: true,
   })
 );
@@ -26,9 +28,9 @@ app.use(express.json());
 
 app.use("/todos", routes);
 
-connectDB();
+connectDB(config.dbUri);
 
-app.get("*", function (req, res) {
+app.get("*", function (_req, res) {
   res.sendStatus(404);
 });
 

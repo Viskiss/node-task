@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const connectDB = async function () {
-  const url = "mongodb://localhost:27017";
+const connectDB = async function (dbUri) {
   try {
     mongoose
-    .connect(url, {
+    .connect(dbUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })

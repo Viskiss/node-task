@@ -1,3 +1,7 @@
-// PORT=5000
-// MONGO_URL=mongodb://localhost:27017
-// CLIENT_URL=http://localhost:3000
+const config = {
+  port: process.env.PORT || 5000,
+  dbUri: process.env.MONGO_URL,
+  clientUrl: process.env.CLIENT_URL,
+};
+
+module.exports = config;
