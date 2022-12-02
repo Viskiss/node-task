@@ -5,17 +5,19 @@ const TodoSchema = new mongoose.Schema({
     type: String,
     requred: true,
   },
-	completed: {
-		type: Boolean,
-		default: false,
-	},
-}).method("toJSON", function() {
-	const { __v, _id, ...other } = this.toObject();
+  completed: {
+    type: Boolean,
+    default: false,
+  },
+})
 
-	other.id = _id;
+// .method("toJSON", function () {
+//   const { __v, _id, ...other } = this.toObject();
 
-	return other;
-});
+//   other.id = _id;
+
+//   return other;
+// });
 
 const Todo = mongoose.model("Todo", TodoSchema);
 

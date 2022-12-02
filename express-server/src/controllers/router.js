@@ -1,10 +1,11 @@
 const express = require("express");
-const router = express.Router();
 
 const getTodos = require("./getTodo");
 const createTodo = require("./createTodo");
 const updateTodo = require("./updateTodo");
 const deleteTodo = require("./deleteTodo");
+
+const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
