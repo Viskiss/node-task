@@ -1,12 +1,21 @@
+const express = require("express");
+const router = express.Router();
 const Todo = require("../db/models/Todo");
 
-const updateTodo = {
-  updateTodoBody: async (id, value) => {
-    const updatedTodo = await Todo.findByIdAndUpdate(id, value, {
+router.patch("/:id", async (req, res) => {
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    return updatedTodo;
-  },
-};
 
-module.exports = updateTodo;
+    if (!updatedTodo) {
+      return res.status(404).json({ message: "Unable to update" });
+    }
+
+    res.json(updatedTodo);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+module.exports = router;

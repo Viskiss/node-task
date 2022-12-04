@@ -1,11 +1,15 @@
+const express = require("express");
+const router = express.Router();
 const Todo = require("../db/models/Todo");
 
-const createTodo = {
-  createNewTodo: async (value) => {
-    const todo = new Todo(value);
+router.post("/", async (req, res) => {
+  try {
+    const todo = new Todo({ title: req.body.title });
+    await todo.save();
+    res.json(todo);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 
-    return todo;
-  },
-};
-
-module.exports = createTodo;
+module.exports = router;

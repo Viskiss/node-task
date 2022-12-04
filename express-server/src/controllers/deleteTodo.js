@@ -1,9 +1,19 @@
+const express = require("express");
+const router = express.Router();
 const Todo = require("../db/models/Todo");
 
-const deleteTodo = {
-  deleteTodoBody: async (id) => {
-    return await Todo.findByIdAndDelete(id);
-  },
-};
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedTodo = await Todo.findByIdAndDelete({ _id: req.params.id });
 
-module.exports = deleteTodo;
+    if (!deletedTodo) {
+      return res.status(404).json({ message: "Unable to delete" });
+    }
+
+    res.json("ok");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+module.exports = router;

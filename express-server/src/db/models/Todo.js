@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const TodoSchema = new mongoose.Schema({
-  value: {
+  title: {
     type: String,
     requred: true,
   },
@@ -9,15 +9,13 @@ const TodoSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-})
+}).method("toJSON", function () {
+  const { __v, _id, ...other } = this.toObject();
 
-// .method("toJSON", function () {
-//   const { __v, _id, ...other } = this.toObject();
+  other.id = _id;
 
-//   other.id = _id;
-
-//   return other;
-// });
+  return other;
+});
 
 const Todo = mongoose.model("Todo", TodoSchema);
 

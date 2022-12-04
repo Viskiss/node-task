@@ -4,6 +4,6 @@ const todoRoutes = require("./todoRoutes");
 
 const router = express.Router();
 
-router.use("/todos", todoRoutes);
+router.use("/", todoRoutes);
 
 module.exports = router;
