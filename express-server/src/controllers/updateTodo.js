@@ -4,6 +4,9 @@ const Todo = require("../db/models/Todo");
 
 router.patch("/:id", async (req, res) => {
   try {
+    if (!req.body.title) {
+      throw Error("Do you want to deceive me? Something is missing.");
+    }
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
@@ -14,7 +17,7 @@ router.patch("/:id", async (req, res) => {
 
     res.json(updatedTodo);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(500).send(error.message);
   }
 });
 

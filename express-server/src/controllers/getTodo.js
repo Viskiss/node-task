@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     });
     res.json(todos);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(500).send(error.message);
   }
 });
 

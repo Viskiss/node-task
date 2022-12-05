@@ -4,11 +4,14 @@ const Todo = require("../db/models/Todo");
 
 router.post("/", async (req, res) => {
   try {
+    if (!req.body.title) {
+      throw Error("Title is required");
+    }
     const todo = new Todo({ title: req.body.title });
     await todo.save();
     res.json(todo);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(500).send(error.message);
   }
 });
 

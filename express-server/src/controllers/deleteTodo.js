@@ -4,6 +4,9 @@ const Todo = require("../db/models/Todo");
 
 router.delete("/:id", async (req, res) => {
   try {
+    if (!req.params.id) {
+      throw Error("How to delete todo without id?");
+    }
     const deletedTodo = await Todo.findByIdAndDelete({ _id: req.params.id });
 
     if (!deletedTodo) {
@@ -12,7 +15,7 @@ router.delete("/:id", async (req, res) => {
 
     res.json("ok");
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(500).send(error.message);
   }
 });
 
