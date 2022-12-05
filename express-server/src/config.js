@@ -12,4 +12,4 @@ const localConfig = {
   clientUrl: process.env.CLIENT_URL,
 };
 
-module.exports = localConfig;
+module.exports = localConfig, defaultConfig;
